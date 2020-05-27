@@ -2,3 +2,4 @@ Data/
 
 # Python
 __pycache__/
+*.sqlite
