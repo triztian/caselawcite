@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "url": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "name_abbreviation": {
+      "type": "string"
+    },
+    "decision_date": {
+      "type": "string"
+    },
+    "docket_number": {
+      "type": "string"
+    },
+    "first_page": {
+      "type": "string"
+    },
+    "last_page": {
+      "type": "string"
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "cite": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cite",
+          "type"
+        ]
+      }
+    },
+    "volume": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "barcode": {
+          "type": "string"
+        },
+        "volume_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "barcode",
+        "url",
+        "volume_number"
+      ]
+    },
+    "reporter": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "full_name",
+        "id",
+        "url"
+      ]
+    },
+    "court": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "name_abbreviation": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "name_abbreviation",
+        "slug",
+        "url"
+      ]
+    },
+    "jurisdiction": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "name_long": {
+          "type": "string"
+        },
+        "whitelisted": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "name_long",
+        "slug",
+        "url",
+        "whitelisted"
+      ]
+    },
+    "frontend_url": {
+      "type": "string"
+    },
+    "preview": {
+      "type": "array"
+    },
+    "casebody": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "judges": {
+              "type": "array"
+            },
+            "attorneys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "opinions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "text",
+                  "type"
+                ]
+              }
+            },
+            "head_matter": {
+              "type": "string"
+            },
+            "corrections": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attorneys",
+            "corrections",
+            "head_matter",
+            "judges",
+            "opinions"
+          ]
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "status"
+      ]
+    }
+  },
+  "required": [
+    "casebody",
+    "citations",
+    "court",
+    "decision_date",
+    "docket_number",
+    "first_page",
+    "frontend_url",
+    "id",
+    "jurisdiction",
+    "last_page",
+    "name",
+    "name_abbreviation",
+    "preview",
+    "reporter",
+    "url",
+    "volume"
+  ]
+}
