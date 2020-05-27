@@ -14,7 +14,8 @@ known_case_parts = {
     'appellant',
     'appellee', 
     'plaintiff',
-    'defendant'
+    'defendant',
+	'claimant',
 }
 
 non_name_words = {
@@ -24,7 +25,10 @@ non_name_words = {
     'argued',
     'all of',
     'p.c.',
-    '&'
+    '&',
+	'coun',
+	'corporation',
+	'counsel'
 }
 
 def is_title(string):

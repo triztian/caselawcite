@@ -1,6 +1,9 @@
 
 def flatten(l):
-	"""Flattens an array of arrays"""
+    """Flattens an array of arrays
+
+    - Note: This function holds the full list in-memory
+    """
     result = []
     for sublist in l:
         for item in sublist:
@@ -9,7 +12,7 @@ def flatten(l):
 
 
 def clean_chars(input):
-	"""Remove 'special' non name characters"""
+    """Remove 'special' non name characters"""
     return input \
         .replace('(', '') \
         .replace(')', '') \
@@ -18,9 +21,9 @@ def clean_chars(input):
 
 
 def split_clean(input_item):
-	"""Splits each raw attorney item and cleans odd characters like parens, 
-	ampersands, commas, etc and returns a single array with string names.
-	"""
+    """Splits each raw attorney item and cleans odd characters like parens, 
+    ampersands, commas, etc and returns a single array with string names.
+    """
     parts = input_item.split(',')
     parts = flatten([p.split('(') for p in parts])
     parts = flatten([p.split(')') for p in parts])
