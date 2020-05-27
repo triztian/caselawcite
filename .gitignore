@@ -1,1 +1,4 @@
 Data/
+
+# Python
+__pycache__/
