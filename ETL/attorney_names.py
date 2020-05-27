@@ -1,8 +1,9 @@
 from string_processing import *
 
-known_titles = {"attorney", "solicitor", "assistant", "general", "public", "guardian"}
 
-known_case_parts = {
+KNOWN_TITLES = {"attorney", "solicitor", "assistant", "general", "public", "guardian"}
+
+KNOWN_CASE_PARTIES = {
     "appellant",
     "appellee",
     "plaintiff",
@@ -10,7 +11,7 @@ known_case_parts = {
     "claimant",
 }
 
-non_name_words = {
+KNOWN_NON_NAME_WORDS = {
     "llc",
     "ltd.",
     "inc.",
@@ -22,6 +23,7 @@ non_name_words = {
     "corporation",
     "counsel",
     "pro se",
+    "pro se.",
     "ec.",
     "appointed",
     "attorneys",
@@ -30,7 +32,7 @@ non_name_words = {
 
 def is_title(string):
     """Determines if the string is a position title."""
-    return bool(set(string.split(" ")) & known_titles)
+    return bool(set(string.split(" ")) & (KNOWN_TITLES | KNOWN_CASE_PARTIES))
 
 
 def is_place_of_origin(string):
@@ -47,7 +49,7 @@ def is_party_indicator(string):
 
 def is_other_string(string):
     """Indicates that the string represents some other entity or meaning."""
-    return bool(set(string.split(" ")) & non_name_words)
+    return bool(set(string.split(" ")) & KNOWN_NON_NAME_WORDS)
 
 
 def is_person_name(string):
@@ -75,6 +77,7 @@ def fix_jr_suffixes(name_strings):
 
 
 def parse_attorney_names(case_attorneys_items):
+    """Extracts attorney names from a list of case_attorney_items"""
     clean_parts = [split_clean(item) for item in case_attorneys_items]
 
     name_strings = flatten(clean_parts)
