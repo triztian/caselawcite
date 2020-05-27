@@ -1,10 +1,19 @@
 # Commands and Steps related to Data Exploration
 
+For the purposes of simplicity we will use the bash variables `$DATA` and `$DPROC`
+to contain the paths to the _raw data_ directory and file based processed data
+respectively.
+
+```bash
+# pwd points to the root of our project repo
+export DATA=$(pwd)/Data/Illinois-20200302-text/data
+export DPROC=$(pwd)/Data/Processed
+```
 
 #### Extracting the Bulk Download
 
 ```bash
-xzcat ./Data/Illinois-20200302-text/data/data.jsonl.xz > data.jsonl
+xzcat $DATA/data.jsonl.xz > data.jsonl
 ```
 
 #### Converting from JSON Line (`*.jsonl`) to a regular JSON array
@@ -31,7 +40,7 @@ the "slurp" feature of `jq`:
 
 ```bash
 cd ./Data/Illinois-20200302-text
-jq -s ./data/data.jsonl > ./data/data.json
+jq -s $DATA/data.jsonl > $DPROC/data.json
 ```
 
 #### Creating a JSON schema (for Case Objects)
@@ -39,13 +48,21 @@ jq -s ./data/data.jsonl > ./data/data.json
 First get the first record of the case data:
 
 ```bash
-cd ./Data/Illinois-20200302-text
-jq '.[0]' ./data/data.json > data_0.json
+jq '.[0]' $DATA/data.json > $DPROC/data_0.json
 ```
 
 Then after we've extracted the first case, lets generate a schema from it:
 
 ```bash
 cd ./Data/Illinois-20200302-text
-genson ./data/data_0.json > data_0_schema.json
+genson $DPROC/data_0.json > $DPROC/data_0_schema.json
+```
+
+#### Sampling down the data for quicker ETL prototyping
+
+To reduce our ETL iteration speed it's a good idea to reduce the size of our 
+data set, for our project we've
+
+```bash
+jq '.[:200]' $DATA/data.json > $DPROC/data_first_200.json
 ```
