@@ -49,7 +49,7 @@ def is_party_indicator(string):
 
 def is_other_string(string):
     """Indicates that the string represents some other entity or meaning."""
-    return bool(set(string.split(" ")) & KNOWN_NON_NAME_WORDS)
+    return string in KNOWN_NON_NAME_WORDS or bool(set(string) & KNOWN_NON_NAME_WORDS)
 
 
 def is_person_name(string):
