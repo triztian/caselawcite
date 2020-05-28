@@ -4,6 +4,15 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Create Database (Case and Attorney)",
+			"type": "shell",
+			"problemMatcher": [],
+			"dependsOn": [
+				"Create Attorneys Database",
+				"Create Cases Database",
+			]
+		},
+		{
 			"label": "Create Attorneys Database",
 			"type": "shell",
 			"command": [
