@@ -10,9 +10,22 @@ def flatten(l):
     return result
 
 
+def remove_strings(src, *strings):
+    """Removes (replaces) each of the strings with an empty string"""
+    for s in strings:
+        src = src.replace(s, "")
+    return src
+
+
 def clean_chars(input):
     """Remove 'special' non name characters"""
-    return input.replace("(", "").replace(")", "").replace("and ", "").strip()
+    return (
+        input.replace("(", "")
+        .replace(")", "")
+        .replace("and ", "")
+        .replace("..", ".")
+        .strip()
+    )
 
 
 def split_clean(input_item):
@@ -22,6 +35,7 @@ def split_clean(input_item):
     parts = input_item.split(",")
     parts = flatten([p.split("(") for p in parts])
     parts = flatten([p.split(")") for p in parts])
+    parts = flatten([p.split(";") for p in parts])
 
     parts = [p.lower() for p in parts]
     parts = [clean_chars(p) for p in parts]
