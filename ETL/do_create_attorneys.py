@@ -68,7 +68,7 @@ def store_in_sqlitedb(dbpath, tables_ddl_path, cases):
             attorney_id = None
             try:
                 logging.info(f"Insert STMT: {insert_stmt}")
-                cur.execute(insert_stmt, (attorney["name"],))
+                cur.execute(insert_stmt, (attorney["names"],))
                 logging.info(cur.lastrowid)
 
                 attorney_id = cur.lastrowid

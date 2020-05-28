@@ -8,9 +8,21 @@
 			"type": "shell",
 			"command": [
 				"python3",
-				"${workspaceFolder}/ETL/do_create_attorney_table.py",
+				"${workspaceFolder}/ETL/do_create_attorneys.py",
 				"-s","${workspaceFolder}/hcaplite.sqlite",
 				"-t", "${workspaceFolder}/Database/attorneys.ddl.sql",
+				"${workspaceFolder}/Data/Processed/data.json"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Create Cases Database",
+			"type": "shell",
+			"command": [
+				"python3",
+				"${workspaceFolder}/ETL/do_create_cases.py",
+				"-s","${workspaceFolder}/hcaplite.sqlite",
+				"-t", "${workspaceFolder}/Database/cases.ddl.sql",
 				"${workspaceFolder}/Data/Processed/data.json"
 			],
 			"problemMatcher": []

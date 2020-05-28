@@ -7,10 +7,7 @@ def load_attorney_names_text(file):
     """
     objects = ijson.items(file, "item")
     for obj in objects:
-        sobj = {
-            "id": obj["id"],
-            "first_page": obj["first_page"],
-        }
+        sobj = { "id": obj["id"] }
 
         try:
             sobj["attorneys"] = obj["casebody"]["data"]["attorneys"]
@@ -18,3 +15,18 @@ def load_attorney_names_text(file):
             pass
 
         yield sobj
+
+
+def load_cases(file):
+    """Loads the case data and produces a simplified object containing"""
+    objects = ijson.items(file, "item")
+    for obj in objects:
+        yield {
+            'id': obj["id"],
+            "first_page": obj["first_page"],
+            "last_page": obj["last_page"],
+            "decision_date": obj["decision_date"],
+            "court": obj["court"],
+            "volume": obj["volume"],
+            "jurisdiction": obj["jurisdiction"]
+        }
