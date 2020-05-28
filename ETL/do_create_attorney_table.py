@@ -62,29 +62,39 @@ def store_in_sqlitedb(dbpath, tables_ddl_path, cases):
     cur = conn.cursor()
     for case in cases:
         case_id = case["id"]
-        attorneys = parse_attorney_names(case["attorneys"])
+        attorneys = parse_attorneys(case["attorneys"])
         for attorney in attorneys:
             insert_stmt = "INSERT INTO attorneys (names) VALUES (?)"
             attorney_id = None
             try:
                 logging.info(f"Insert STMT: {insert_stmt}")
-                cur.execute(insert_stmt, (attorney,))
+                cur.execute(insert_stmt, (attorney["name"],))
                 logging.info(cur.lastrowid)
 
                 attorney_id = cur.lastrowid
             except Exception as e:
                 logging.info(str(e))
                 cur.execute(
-                    "SELECT id FROM attorneys WHERE names = ? LIMIT 1", (attorney,)
+                    "SELECT id FROM attorneys WHERE names = ? LIMIT 1",
+                    (attorney["names"],),
                 )
                 result = cur.fetchone()
                 if result:
                     attorney_id = result[0]
 
-            insert_stmt = "INSERT INTO attorney_cases VALUES (?, ?)"
+            insert_stmt = "INSERT INTO attorney_cases VALUES (?, ?, ?, ?, ?)"
             try:
                 logging.info(f"Insert STMT: {insert_stmt}")
-                cur.execute(insert_stmt, (attorney_id, case_id))
+                cur.execute(
+                    insert_stmt,
+                    (
+                        attorney_id,
+                        case_id,
+                        attorney["party"],
+                        attorney["party_type"],
+                        attorney["title"],
+                    ),
+                )
             except Exception as e:
                 logging.info(str(e))
 

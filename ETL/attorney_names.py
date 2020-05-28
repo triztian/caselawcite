@@ -29,6 +29,8 @@ KNOWN_NON_NAME_WORDS = {
     "attorneys",
 }
 
+GOVT_PARTIES = {"assistant attorney general", "attorney general", "solicitor general", "the people"}
+
 
 def is_title(string):
     """Determines if the string is a position title."""
@@ -64,12 +66,17 @@ def is_person_name(string):
     )
 
 
+def is_person_title(string):
+    """Determines if the given string is a title or position"""
+    return bool(set(string.split(" ")) & KNOWN_TITLES)
+
+
 def fix_jr_suffixes(name_strings):
     """Fixes 'jr.' suffixes by combining them with the previous name"""
     prev = None
     for name_string in name_strings:
         current = name_string
-        if current == "jr.":
+        if current == "jr." and prev is not None:
             current = prev + " jr."
 
         yield current
@@ -85,3 +92,51 @@ def parse_attorney_names(case_attorneys_items):
     name_strings = fix_jr_suffixes(name_strings)
 
     return [string for string in name_strings if is_person_name(string)]
+
+
+def party_from_parts(parts):
+    for part in parts:
+        if is_party_indicator(part):
+            return part
+    return None
+
+
+def parse_attorneys_from_item(case_attorney_item):
+    clean_parts = split_clean(case_attorney_item)
+
+    clean_parts = list(fix_jr_suffixes(clean_parts))
+
+    attorney = {}
+    party = party_from_parts(clean_parts)
+    if party is not None:
+        party = party.replace("for ", "").replace(".", "").strip()
+        attorney["party"] = party
+
+    name_index = None
+    for i, part in enumerate(clean_parts):
+        if is_person_title(part):
+            attorney["title"] = part
+            attorney["party_type"] = "government" if part in GOVT_PARTIES else "private"
+
+        if is_person_name(part):
+            if name_index is not None:
+                attorney["names"] = clean_parts[name_index]
+                yield attorney
+
+                attorney = {}
+                attorney["names"] = part
+                if party:
+                    attorney["party"] = party
+
+            name_index = i
+
+        if i == (len(clean_parts) - 1) and "names" in attorney:
+            print(attorney)
+            yield attorney
+
+
+def parse_attorneys(case_attorney_items):
+    """Parse attorney information from an array of case attorney items"""
+    for item in case_attorney_items:
+        for attorney in parse_attorneys_from_item(item):
+            yield attorney
