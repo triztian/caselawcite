@@ -35,6 +35,19 @@
 				"${workspaceFolder}/Data/Processed/data.json"
 			],
 			"problemMatcher": []
+		},
+		{
+			"label": "Create Citations Table",
+			"type": "shell",
+			"command": [
+				"python3",
+				"${workspaceFolder}/ETL/do_create_cases.py",
+				"-s","${workspaceFolder}/hcaplite.sqlite",
+				"-t", "${workspaceFolder}/Database/cases.ddl.sql",
+				"--citations",
+				"${workspaceFolder}/Data/Illinois-20200302-text/data/citations.csv"
+			],
+			"problemMatcher": []
 		}
 	]
 }

@@ -5,13 +5,14 @@ import os
 import sqlite3
 import argparse
 import logging
+import csv
 
 from data_loading import *
 from cases import *
 
 
 command = argparse.ArgumentParser(
-    description='Extract the ".casebody.data.attorneys" of each case'
+    description='Extract the Case data'
 )
 
 command.add_argument(
@@ -30,10 +31,17 @@ command.add_argument(
 )
 
 command.add_argument(
-    "-p", "--print", type=int, help="Only print the names, don't store them"
+    "-d",
+    "--drop-tables",
+    type=str,
+    help="Path to the SQL DDL file that setups the tables",
 )
 
-command.add_argument("-c", "--clean", type=int, help="Clean / overwrite the SQLite DB")
+command.add_argument(
+    "-c", "--citations", 
+     action='store_true',
+     help="Create citations instead of case entries"
+)
 
 command.add_argument(
     "-l", "--log-level", type=str, help="The log level; default is warning"
@@ -57,7 +65,6 @@ def setup_tables(dbpath, tables_ddl_path):
 
 def store_in_sqlitedb(dbpath, tables_ddl_path, cases):
     """Store the case data in the sqlite db"""
-    setup_tables(dbpath, tables_ddl_path)
     conn = sqlite3.connect(dbpath)
     cur = conn.cursor()
     for case in cases:
@@ -82,27 +89,50 @@ def store_in_sqlitedb(dbpath, tables_ddl_path, cases):
     conn.close()
 
 
+def store_in_sqlitedb_citations(dbpath, citations_path):
+    conn = sqlite3.connect(dbpath)
+    cur = conn.cursor()
+
+    with open(citations_path, 'r') as f:
+        cits_reader = csv.reader(f, delimiter=',')
+        insert_stmt = "INSERT INTO case_citations VALUES (?, ?)"
+        for row in cits_reader:
+            case_id = int(row[0])
+            for cited_case_id in row[1:]:
+                cur.execute(insert_stmt, (row[0], cited_case_id))
+
+    conn.commit()
+    conn.close()
+
+
 def run(args):
     if args.log_level:
         logging.basicConfig(level=getattr(logging, args.log_level.upper()))
 
-    with open(args.DataPath, "r") as f:
-        objects = load_cases(f)
+    if args.drop_tables and args.tables_ddl:
+        pass
 
-        if args.sqlite:
-            store_in_sqlitedb(args.sqlite, args.tables_ddl, objects)
-            return
+    if not args.citations:
+        with open(args.DataPath, "r") as f:
+            objects = load_cases(f)
 
-        max_print = 12
-        if args.print:
-            max_print = args.print
-
-        read = 0
-        for obj in objects:
-            print(obj)
-            read += 1
-            if read > max_print:
+            if args.sqlite:
+                setup_tables(args.sqlite, args.tables_ddl)
+                store_in_sqlitedb(args.sqlite, args.tables_ddl, objects)
                 return
+
+            max_print = 12
+            if args.print:
+                max_print = args.print
+
+            read = 0
+            for obj in objects:
+                print(obj)
+                read += 1
+                if read > max_print:
+                    return
+    else:
+        store_in_sqlitedb_citations(args.sqlite, args.DataPath)
 
 
 if __name__ == "__main__":
