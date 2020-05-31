@@ -8,18 +8,32 @@
 			"type": "shell",
 			"problemMatcher": [],
 			"dependsOn": [
+				"Create Database Tables",
 				"Create Attorneys Database",
 				"Create Cases Database",
 			]
+		},
+		{
+			"label": "Create Database Tables",
+			"type": "shell",
+			"command": [
+				"python3",
+				"${workspaceFolder}/ETL/hcapetl.py", 
+				"create", "tables",
+				"${workspaceFolder}/hcap.sqlite",
+				"${workspaceFolder}/Database/attorneys.ddl.sql",
+				"${workspaceFolder}/Database/cases.ddl.sql"
+			],
+			"problemMatcher": []
 		},
 		{
 			"label": "Create Attorneys Database",
 			"type": "shell",
 			"command": [
 				"python3",
-				"${workspaceFolder}/ETL/do_create_attorneys.py",
-				"-s","${workspaceFolder}/hcaplite.sqlite",
-				"-t", "${workspaceFolder}/Database/attorneys.ddl.sql",
+				"${workspaceFolder}/ETL/hcapetl.py", 
+				"create", "attorneys",
+				"${workspaceFolder}/hcap.sqlite",
 				"${workspaceFolder}/Data/Processed/data.json"
 			],
 			"problemMatcher": []
@@ -30,7 +44,7 @@
 			"command": [
 				"python3",
 				"${workspaceFolder}/ETL/do_create_cases.py",
-				"-s","${workspaceFolder}/hcaplite.sqlite",
+				"-s","${workspaceFolder}/hcap.sqlite",
 				"-t", "${workspaceFolder}/Database/cases.ddl.sql",
 				"${workspaceFolder}/Data/Processed/data.json"
 			],
@@ -42,11 +56,17 @@
 			"command": [
 				"python3",
 				"${workspaceFolder}/ETL/do_create_cases.py",
-				"-s","${workspaceFolder}/hcaplite.sqlite",
+				"-s","${workspaceFolder}/hcap.sqlite",
 				"-t", "${workspaceFolder}/Database/cases.ddl.sql",
 				"--citations",
 				"${workspaceFolder}/Data/Illinois-20200302-text/data/citations.csv"
 			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Delete Database",
+			"type": "shell",
+			"command": "rm -fv ${workspaceFolder}/hcap.sqlite",
 			"problemMatcher": []
 		}
 	]
