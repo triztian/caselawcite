@@ -161,18 +161,17 @@ def parse_attorneys_from_item(case_attorney_item):
 
         if is_person_name(part):
             if name_index is not None:
-                attorney["names"] = clean_parts[name_index]
+                attorney["names"] = clean_person_name(clean_parts[name_index])
                 yield attorney
 
                 attorney = {}
-                attorney["names"] = part
+                attorney["names"] = clean_person_name(part)
                 if party:
                     attorney["party"] = party
 
             name_index = i
 
         if i == (len(clean_parts) - 1) and "names" in attorney:
-            print(attorney)
             yield attorney
 
 

@@ -68,8 +68,14 @@ PARTY_ERRATA = {
 }
 
 
+def clean_special_chars(string):
+    return remove_strings(
+        string, "for ", "■", "•", '"', "^", ":", "*", "%", "„", "!", "|",
+    )
+
+
 def clean_person_name(name):
-    return name.replace("’", "'")
+    return clean_special_chars(name).replace("’", "'")
 
 
 def clean_person_title(string):
@@ -103,23 +109,7 @@ def clean_party_errata(string):
 
 def clean_party(string):
     return clean_party_errata(
-        remove_strings(
-            string,
-            "for ",
-            ".",
-            "■",
-            "’",
-            "•",
-            '"',
-            "-",
-            "^",
-            ":",
-            "*",
-            "%",
-            "„",
-            "!",
-            "|",
-        )
+        clean_special_chars(string)
         .replace("  ", " ")
         .replace("’", "'")
         .replace('"', "'")
