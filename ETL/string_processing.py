@@ -20,9 +20,7 @@ def remove_strings(src, *strings):
 def clean_chars(input):
     """Remove 'special' non name characters"""
     return (
-        input.replace("(", "")
-        .replace(")", "")
-        .replace("and ", "")
+        remove_strings(input, "(", ")", "_", "-", "and ", "^", ">", "<")
         .replace("..", ".")
         .strip()
     )

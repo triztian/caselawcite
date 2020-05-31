@@ -11,40 +11,21 @@ from data_loading import *
 from cases import *
 
 
-command = argparse.ArgumentParser(
-    description='Extract the Case data'
-)
+parser = argparse.ArgumentParser(description="Extract the Case data")
 
-command.add_argument(
+parser.add_argument(
     "DataPath", metavar="data_path.json", type=str, help="Path to the JSON data file"
 )
 
-command.add_argument(
+parser.add_argument(
     "-s", "--sqlite", type=str, help="Path to the SQLite3 DB to be used"
 )
 
-command.add_argument(
-    "-t",
-    "--tables-ddl",
-    type=str,
-    help="Path to the SQL DDL file that setups the tables",
-)
-
-command.add_argument(
-    "-d",
-    "--drop-tables",
-    type=str,
-    help="Path to the SQL DDL file that setups the tables",
-)
-
-command.add_argument(
-    "-c", "--citations", 
-     action='store_true',
-     help="Create citations instead of case entries"
-)
-
-command.add_argument(
-    "-l", "--log-level", type=str, help="The log level; default is warning"
+parser.add_argument(
+    "-c",
+    "--citations",
+    action="store_true",
+    help="Create citations instead of case entries",
 )
 
 
@@ -93,8 +74,8 @@ def store_in_sqlitedb_citations(dbpath, citations_path):
     conn = sqlite3.connect(dbpath)
     cur = conn.cursor()
 
-    with open(citations_path, 'r') as f:
-        cits_reader = csv.reader(f, delimiter=',')
+    with open(citations_path, "r") as f:
+        cits_reader = csv.reader(f, delimiter=",")
         insert_stmt = "INSERT INTO case_citations VALUES (?, ?)"
         for row in cits_reader:
             case_id = int(row[0])
@@ -136,4 +117,4 @@ def run(args):
 
 
 if __name__ == "__main__":
-    run(command.parse_args())
+    run(parser.parse_args())
