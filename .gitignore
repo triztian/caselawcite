@@ -4,3 +4,7 @@ Data/
 __pycache__/
 *.sqlite
 *.sqlite-journal
+
+
+# Misc
+.DS_Store
