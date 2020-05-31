@@ -3,8 +3,9 @@
 import sys
 import argparse
 
-import do_create_attorneys as create_attorneys
 import do_create_tables as create_tables
+import do_create_attorneys as create_attorneys
+import do_create_cases as create_cases
 
 parser = argparse.ArgumentParser()
 
@@ -16,6 +17,7 @@ create_subparser.add_parser("tables", parents=[create_tables.parser], add_help=F
 create_subparser.add_parser(
     "attorneys", parents=[create_attorneys.parser], add_help=False
 )
+create_subparser.add_parser("cases", parents=[create_cases.parser], add_help=False)
 
 
 if __name__ == "__main__":
@@ -26,3 +28,6 @@ if __name__ == "__main__":
 
     elif args.command == "attorneys":
         create_attorneys.run(args)
+
+    elif args.command == "cases":
+        create_cases.run(args)
