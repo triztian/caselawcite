@@ -33,11 +33,15 @@ curl https://case.law/download/citation_graph/2020-04-28/citations.csv.gz
 
 ## Preparing the Data for analysis
 
+First be sure to install the required Tools as listed here:
+
+  * [Tools]("./Tools.md")
+
 After downloading the data into the `Data` directory we can use the 
 python script included in `./ETL/hcapetl.py` directory to transform, clean and insert
 the data into a SQLite database that will simplify our analysis.
 
-The data must be extracte first with these commands:
+The data must be extracted first with these commands:
 
 ```bash
 DATA=Data/Illinois-20200302-text/data
