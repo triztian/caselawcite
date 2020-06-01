@@ -51,14 +51,13 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Create Citations Table",
+			"label": "Create Citations Database",
 			"type": "shell",
 			"command": [
 				"python3",
-				"${workspaceFolder}/ETL/do_create_cases.py",
-				"-s","${workspaceFolder}/hcap.sqlite",
-				"-t", "${workspaceFolder}/Database/cases.ddl.sql",
-				"--citations",
+				"${workspaceFolder}/ETL/hcapetl.py",
+				"create", "citations",
+				"${workspaceFolder}/hcap.sqlite",
 				"${workspaceFolder}/Data/Illinois-20200302-text/data/citations.csv"
 			],
 			"problemMatcher": []

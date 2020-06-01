@@ -11,7 +11,7 @@ from data_loading import *
 from cases import *
 
 
-parser = argparse.ArgumentParser(description="Extract the Case data")
+parser = argparse.ArgumentParser(description="Extracts citation case data and stores in in the 'case_citations' table")
 
 parser.add_argument(
     "sqlite_path", metavar="sqlite_path", type=str, help="Path to the SQLite db to use (the tables must already exist)"
@@ -40,7 +40,3 @@ def store_in_sqlitedb_citations(dbpath, citations_path):
 
 def run(args):
     store_in_sqlitedb_citations(args.sqlite_path, args.citations_path)
-
-
-if __name__ == "__main__":
-    run(parser.parse_args())
