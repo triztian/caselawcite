@@ -1,6 +1,22 @@
-# UCLACaseLawCite
+# Case Law Cite
 
-Final project for UCLA's Data Science - Exploratory Data Analysis and Visualization
+An analysis project that inspects citations in rulings 
+
+## Analysis
+
+As mentioned in the project report we seek to answer the following questions:
+
+  1. Who is the attorney that has had the most participation in cases?, from private parties?, from the government?
+  2. How much the work in which an attorney is involved is cited, e.g. 
+how influential was the work.
+  3. What is the page count of cases in which an attorney has participated?
+
+Those questions are answered by the following respective Jupyter Notebooks, 
+and the findings presented in the project report:
+
+  1. [Q1 Most Influential Attorneys]("./Q1 Most Influential Attorneys.ipynb")
+  2. [Q2 Attorney Case Citations]("./Q2 Attorney Case Citations.ipynb")
+  3. [Q3 Average page count for cases]("./Q3 Average page count for cases.ipynb")
 
 
 ## Obtaining the Data
@@ -80,18 +96,3 @@ The [Data Exploration]("./Data Exploration.md") file has information about
 the commands used to gain insights to fragments of the data and to determine
 a SQL db schema.
 
-## Analysis
-
-As mentioned in the project report we seek to answer the following questions:
-
-  1. Who is the attorney that has had the most participation in cases?, from private parties?, from the government?
-  2. How much the work in which an attorney is involved is cited, e.g. 
-how influential was the work.
-  3. What is the page count of cases in which an attorney has participated?
-
-Those questions are answered by the following respective Jupyter Notebooks, 
-and the findings presented in the project report:
-
-  1. [Q1 Most Influential Attorneys]("./Q1 Most Influential Attorneys.ipynb")
-  2. [Q2 Attorney Case Citations]("./Q2 Attorney Case Citations.ipynb")
-  3. [Q3 Average page count for cases]("./Q3 Average page count for cases.ipynb")
