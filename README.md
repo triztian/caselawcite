@@ -1,6 +1,6 @@
 # Case Law Cite
 
-An analysis project that inspects citations in rulings 
+An analysis project that inspects citations in rulings from Illinois. 
 
 ## Analysis
 
