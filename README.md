@@ -14,9 +14,9 @@ how influential was the work.
 Those questions are answered by the following respective Jupyter Notebooks, 
 and the findings presented in the project report:
 
-  1. [Q1 Most Influential Attorneys]("./Q1 Most Influential Attorneys.ipynb")
-  2. [Q2 Attorney Case Citations]("./Q2 Attorney Case Citations.ipynb")
-  3. [Q3 Average page count for cases]("./Q3 Average page count for cases.ipynb")
+  1. [Q1 Most Influential Attorneys](./Q1%20Most%20Influential%20Attorneys.ipynb)
+  2. [Q2 Attorney Case Citations](./Q2%20Attorney%20CaseCitations.ipynb)
+  3. [Q3 Average page count for cases](./Q3%20Average%20page%20count%20for%20cases.ipynb)
 
 
 ## Obtaining the Data
@@ -87,12 +87,12 @@ this project.
 The `ETL` directory has all of the python source necessary to work with the data.
 To aid with the exploration and cleanup we have the following Jupyter Notebooks:
 
-  1. [Attorney Name Parsing]("./Attorney Name Parsing.ipynb")
-  2. [Attorney Record Parsing]("./Attorney Record Parsing.ipynb")
-  3. [Attorney Career Overview]("./Attorney Career Overview.ipynb")
-  4. [Influential Case Attorneys]("./Influential Case Attorneys.ipynb")
+  1. [Attorney Name Parsing](./Attorney%20Name%20Parsing.ipynb)
+  2. [Attorney Record Parsing](./Attorney%20Record%20Parsing.ipynb)
+  3. [Attorney Career Overview](./Attorney%20Career%20Overview.ipynb)
+  4. [Influential Case Attorneys](./Influential%20Case%20Attorneys.ipynb")
 
-The [Data Exploration]("./Data Exploration.md") file has information about
+The [Data Exploration](./Data%20Exploration.md) file has information about
 the commands used to gain insights to fragments of the data and to determine
 a SQL db schema.
 
